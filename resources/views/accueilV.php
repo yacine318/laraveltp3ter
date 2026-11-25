@@ -12,11 +12,11 @@
              echo "<ul>";
              foreach($locations as $uneLoc)
                 {
-                    echo"<li><span class='vert gras'>".$uneLoc->dureeLocation."jours : ".$uneLoc->sonClient->nomClient."(  ".$uneLoc->sonClient->villeClient." )</span></li>";
+                    echo"<li><span class='vert gras'>".$uneLoc->dureeLocation." jours : ".$uneLoc->sonClient->nomClient."(  ".$uneLoc->sonClient->villeClient." )</span></li>";
                     echo "<ul>";
                     foreach($uneLoc->sesMateriaux as $unMat)
                     {
-                        echo"<li>".$unMat->libelleMateriaux."</li>";
+                        echo"<li><a href='".url('/materiauxsupprimer/'.$unMat->idMateriaux)."'>".$unMat->libelleMateriaux."</a></li>";
                     }
                     echo"</ul>";
                 }

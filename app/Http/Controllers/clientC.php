@@ -18,4 +18,37 @@ class clientC extends Controller
 
         return view('accueilV', compact('clients', 'locations', 'materiaux'));
     }
+
+    public function newM()
+    {
+        $lesLoc= locationM::all();
+       $lesclients = clientM::all();
+
+        return view('formLocMatV' , ['lesLoc'=>$lesLoc , 'lesclients'=>$lesclients ]); 
+    }
+
+    public function newsave(Request $request)
+    {
+        
+       $laLoc = locationM::find($request->cboLoc);
+        $lesMateriaux = MateriauxM::all();
+        return view('formnewMatV', ['laLoc' => $laLoc, 'lesMateriaux' => $lesMateriaux]);
+        
+   
+    }
+    public function newsave2(Request $request)
+    {
+        $laLoc = locationM::find($request->cboLoc);
+    
+        $unMat = MateriauxM::find($request->cboMat);
+        $laLoc->sesMateriaux()->attach($unMat);
+        return redirect()->route('accueil');
+    }
+    public function supprmat($idMateriaux)
+    {
+        $unMat = MateriauxM::find($idMateriaux);
+         $unMat->sesLocations()->detach();  
+        $unMat->delete();
+        return redirect()->route('accueil');
+    }
 }
